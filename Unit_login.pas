@@ -1,0 +1,92 @@
+unit Unit_login;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, DB, ADODB;
+
+type
+  TForm_login = class(TForm)
+    but_entrar: TButton;
+    but_cadastrar: TButton;
+    edt_usuario: TEdit;
+    edt_senha: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    ConexaoBD: TADOConnection;
+    ADOQuery_aux: TADOQuery;
+    CB_senha: TCheckBox;
+    procedure but_cadastrarClick(Sender: TObject);
+    procedure but_entrarClick(Sender: TObject);
+    procedure CB_senhaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    usuario_logado, senha_usuario : string;
+
+    function validacao(usuario, senha : String) : boolean;
+  end;
+
+var
+  Form_login: TForm_login;
+
+implementation
+
+uses Unit_cadastro, Unit_menu;
+
+{$R *.dfm}
+
+procedure TForm_login.but_cadastrarClick(Sender: TObject);
+begin
+  Form_cadastro.Showmodal;
+end;
+
+function TForm_login.validacao(usuario, senha: String): boolean;
+begin
+  ADOQuery_aux.SQL.Text := ' SELECT Senha FROM Clientes '+
+                           ' WHERE Usuario = ' + QuotedStr(usuario);
+  ADOQuery_aux.Open;
+
+  if ADOQuery_aux.IsEmpty then
+    begin
+      Showmessage('Usuário não cadastrado');
+      Result := False;
+    end
+      else
+        begin
+          senha_usuario := ADOQuery_aux.Fieldbyname('Senha').AsString;
+          if senha_usuario <> Senha then
+            begin
+              Showmessage('Senha incorreta');
+              Result := False;
+            end
+              else
+                begin
+                  usuario_logado := usuario;
+                  Result := True;
+                end;
+        end;
+
+      ADOQuery_aux.Close;
+end;
+
+procedure TForm_login.but_entrarClick(Sender: TObject);
+begin
+  if validacao(edt_usuario.Text, edt_senha.Text) = True then
+    begin
+      Form_menu.Showmodal;
+    end;
+end;
+
+procedure TForm_login.CB_senhaClick(Sender: TObject);
+begin
+  if CB_senha.Checked = True then
+    edt_senha.PasswordChar := #0
+  else if CB_senha.Checked = False then
+    edt_senha.PasswordChar := '#';
+end;
+
+end.
