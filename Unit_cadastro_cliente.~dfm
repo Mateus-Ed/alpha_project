@@ -1,8 +1,8 @@
 object Form_cadastro_cliente: TForm_cadastro_cliente
-  Left = 360
-  Top = 186
-  Width = 656
-  Height = 438
+  Left = 425
+  Top = 215
+  Width = 592
+  Height = 416
   BorderIcons = [biSystemMenu]
   Caption = 'Cadastro de clientes'
   Color = clBtnFace

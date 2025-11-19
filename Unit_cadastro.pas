@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Mask, ComCtrls, DB, ADODB;
+  Dialogs, StdCtrls, Mask, ComCtrls, DB, ADODB, jpeg, ExtCtrls;
 
 type
   TForm_cadastro = class(TForm)
@@ -23,6 +23,7 @@ type
     DateNasc: TDateTimePicker;
     Label6: TLabel;
     ADOQuery_aux: TADOQuery;
+    Image1: TImage;
     procedure edt_nomeKeyPress(Sender: TObject; var Key: Char);
     procedure CB_senhaClick(Sender: TObject);
     procedure but_cancelarClick(Sender: TObject);

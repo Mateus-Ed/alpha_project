@@ -4,10 +4,13 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, StdCtrls;
 
 type
   TForm_cadastro_cliente = class(TForm)
+    edt_nome: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
   private
     { Private declarations }
   public
